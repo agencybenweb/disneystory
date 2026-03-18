@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Suivi — La Surprise Magique</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #FFD700;
+      --gold2: #FFA500;
+      --blue-deep: #0a0a2e;
+      --blue-mid: #0d1b6e;
+      --purple: #6b21a8;
+      --pink: #ec4899;
+      --success: #22c55e;
+      --danger: #ff4444;
+      --card-bg: rgba(13,27,110,0.85);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--blue-deep);
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+      color: white;
+    }
+
+    /* === LOGIN OVERLAY === */
+    #login-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: radial-gradient(ellipse at 50% 30%, #1a0057 0%, #000015 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #login-overlay.hidden { display: none; }
+
+    .login-box {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 40px 32px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 0 60px rgba(255,215,0,0.25), 0 0 120px rgba(107,33,168,0.3);
+    }
+
+    .login-box::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, var(--gold), var(--pink), var(--gold2));
+      background-size: 300% 300%;
+      animation: borderGlow 4s ease infinite;
+      z-index: -1;
+    }
+
+    @keyframes borderGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .login-icon { font-size: 3rem; margin-bottom: 12px; }
+
+    .login-title {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: 1.1rem;
+      color: var(--gold);
+      text-shadow: 0 0 20px var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .login-sub {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.82rem;
+      margin-bottom: 24px;
+    }
+
+    .login-input {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 2px solid rgba(255,215,0,0.3);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      color: var(--gold);
+      outline: none;
+      font-family: 'Nunito', sans-serif;
+      letter-spacing: 4px;
+      text-align: center;
+      margin-bottom: 16px;
+      transition: all 0.2s;
+    }
+
+    .login-input:focus {
+      border-color: var(--gold);
+      background: rgba(255,215,0,0.08);
+      box-shadow: 0 0 20px rgba(255,215,0,0.3);
+    }
+
+    .login-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: #0a0a2e;
+      border: none;
+      padding: 13px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 900;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(255,215,0,0.4);
+    }
+
+    .login-btn:hover { transform: scale(1.03); }
+
+    .login-error {
+      color: #ff6b6b;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* === MAIN DASHBOARD === */
+    #dashboard { display: none; min-height: 100vh; }
+    #dashboard.show { display: block; }
+
+    .dash-header {
+      background: linear-gradient(90deg, rgba(13,27,110,0.95), rgba(107,33,168,0.85), rgba(13,27,110,0.95));
+      border-bottom: 1px solid rgba(255,215,0,0.15);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .dash-title {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      color: var(--gold);
+      text-shadow: 0 0 20px var(--gold);
+    }
+
+    .dash-subtitle {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .btn-refresh {
+      background: rgba(255,215,0,0.1);
+      border: 1px solid rgba(255,215,0,0.3);
+      color: var(--gold);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Nunito', sans-serif;
+      white-space: nowrap;
+    }
+
+    .btn-refresh:hover { background: rgba(255,215,0,0.2); transform: scale(1.04); }
+
+    .dash-content { padding: 24px 20px; max-width: 1100px; margin: 0 auto; }
+
+    /* === STATS CARDS === */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,215,0,0.12);
+      border-radius: 16px;
+      padding: 18px 16px;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(107,33,168,0.2);
+      transition: transform 0.2s;
+    }
+
+    .stat-card:hover { transform: translateY(-3px); }
+
+    .stat-icon { font-size: 1.8rem; margin-bottom: 8px; }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+      text-shadow: 0 0 16px rgba(255,215,0,0.5);
+      font-family: 'Cinzel Decorative', cursive;
+    }
+
+    .stat-label {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* === SENTIMENT SUMMARY === */
+    .sentiment-summary {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,215,0,0.12);
+      border-radius: 16px;
+      padding: 20px 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 24px rgba(107,33,168,0.2);
+    }
+
+    .section-title {
+      font-size: 0.9rem;
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sentiment-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sentiment-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sentiment-bar-icon { font-size: 1.4rem; width: 32px; text-align: center; }
+
+    .sentiment-bar-track {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .sentiment-bar-fill {
+      height: 100%;
+      border-radius: 50px;
+      transition: width 1s ease;
+      min-width: 4px;
+    }
+
+    .bar-sad { background: linear-gradient(90deg, #60a5fa, #3b82f6); }
+    .bar-neutral { background: linear-gradient(90deg, #a3a3a3, #737373); }
+    .bar-heart { background: linear-gradient(90deg, #fb7185, #f43f5e); }
+
+    .sentiment-bar-count {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.82rem;
+      font-weight: 800;
+      width: 40px;
+      text-align: right;
+    }
+
+    /* === VISITS TABLE === */
+    .visits-section {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,215,0,0.12);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(107,33,168,0.2);
+    }
+
+    .visits-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .visits-count {
+      background: rgba(255,215,0,0.1);
+      border: 1px solid rgba(255,215,0,0.2);
+      color: var(--gold);
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .visits-table { width: 100%; overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    thead th {
+      padding: 12px 14px;
+      text-align: left;
+      color: rgba(255,215,0,0.8);
+      font-weight: 900;
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover { background: rgba(255,255,255,0.03); }
+    tbody tr:last-child { border-bottom: none; }
+
+    tbody td {
+      padding: 12px 14px;
+      color: rgba(255,255,255,0.75);
+      vertical-align: middle;
+    }
+
+    .machine-id {
+      font-family: monospace;
+      font-size: 0.78rem;
+      background: rgba(255,255,255,0.06);
+      padding: 3px 8px;
+      border-radius: 6px;
+      color: rgba(255,215,0,0.8);
+      white-space: nowrap;
+    }
+
+    .sentiment-badge {
+      font-size: 1.4rem;
+      display: inline-block;
+    }
+
+    .sentiment-na {
+      color: rgba(255,255,255,0.25);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .device-info { line-height: 1.5; }
+    .device-ua { font-size: 0.72rem; color: rgba(255,255,255,0.4); max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .badge-mobile {
+      background: rgba(107,33,168,0.4);
+      border: 1px solid rgba(107,33,168,0.6);
+      color: #c084fc;
+      padding: 2px 8px;
+      border-radius: 50px;
+      font-size: 0.68rem;
+      font-weight: 800;
+    }
+
+    .badge-desktop {
+      background: rgba(13,27,110,0.6);
+      border: 1px solid rgba(99,102,241,0.4);
+      color: #818cf8;
+      padding: 2px 8px;
+      border-radius: 50px;
+      font-size: 0.68rem;
+      font-weight: 800;
+    }
+
+    .date-text { font-size: 0.78rem; white-space: nowrap; }
+    .date-sub { font-size: 0.68rem; color: rgba(255,255,255,0.35); }
+
+    .loading-row td {
+      text-align: center;
+      padding: 40px 20px;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.9rem;
+    }
+
+    .loader {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,215,0,0.2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .empty-text { font-size: 0.9rem; }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      margin-right: 6px;
+      box-shadow: 0 0 8px var(--success);
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .last-update {
+      color: rgba(255,255,255,0.3);
+      font-size: 0.72rem;
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .dash-content { padding: 16px 12px; }
+      .visits-table { font-size: 0.76rem; }
+      thead th, tbody td { padding: 10px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN OVERLAY -->
+  <div id="login-overlay">
+    <div class="login-box">
+      <div class="login-icon">🔐</div>
+      <div class="login-title">Accès Suivi</div>
+      <p class="login-sub">Zone admin · Entre le mot de passe</p>
+      <input type="password" id="adminInput" class="login-input" placeholder="••••••••" onkeydown="if(event.key==='Enter') checkAdmin()">
+      <button class="login-btn" onclick="checkAdmin()">🔓 Accéder</button>
+      <div class="login-error" id="loginError">❌ Mot de passe incorrect</div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard">
+    <div class="dash-header">
+      <div>
+        <div class="dash-title">🔍 Tableau de Suivi</div>
+        <div class="dash-subtitle"><span class="status-dot"></span>Visites en temps réel · La Surprise Magique</div>
+      </div>
+      <button class="btn-refresh" onclick="loadData()">🔄 Actualiser</button>
+    </div>
+
+    <div class="dash-content">
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-value" id="statTotal">—</div>
+          <div class="stat-label">Visiteurs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📱</div>
+          <div class="stat-value" id="statMobile">—</div>
+          <div class="stat-label">Mobile</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💻</div>
+          <div class="stat-value" id="statDesktop">—</div>
+          <div class="stat-label">Desktop</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💬</div>
+          <div class="stat-value" id="statVoted">—</div>
+          <div class="stat-label">Avis donnés</div>
+        </div>
+      </div>
+
+      <!-- SENTIMENT SUMMARY -->
+      <div class="sentiment-summary">
+        <div class="section-title">❤️ Répartition des Avis</div>
+        <div class="sentiment-bars">
+          <div class="sentiment-bar-row">
+            <div class="sentiment-bar-icon">😢</div>
+            <div class="sentiment-bar-track"><div class="sentiment-bar-fill bar-sad" id="barSad" style="width:0%"></div></div>
+            <div class="sentiment-bar-count" id="cntSad">0</div>
+          </div>
+          <div class="sentiment-bar-row">
+            <div class="sentiment-bar-icon">😐</div>
+            <div class="sentiment-bar-track"><div class="sentiment-bar-fill bar-neutral" id="barNeutral" style="width:0%"></div></div>
+            <div class="sentiment-bar-count" id="cntNeutral">0</div>
+          </div>
+          <div class="sentiment-bar-row">
+            <div class="sentiment-bar-icon">❤️</div>
+            <div class="sentiment-bar-track"><div class="sentiment-bar-fill bar-heart" id="barHeart" style="width:0%"></div></div>
+            <div class="sentiment-bar-count" id="cntHeart">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISITS TABLE -->
+      <div class="visits-section">
+        <div class="visits-header">
+          <div class="section-title" style="margin:0">📋 Détail des Visites</div>
+          <div class="visits-count" id="visitsCount">0 visite(s)</div>
+        </div>
+        <div class="visits-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Machine ID</th>
+                <th>Date & Heure</th>
+                <th>Appareil</th>
+                <th>Écran</th>
+                <th>Langue</th>
+                <th>Fuseau</th>
+                <th>Avis</th>
+              </tr>
+            </thead>
+            <tbody id="visitsBody">
+              <tr class="loading-row">
+                <td colspan="7"><span class="loader"></span>Chargement des données...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="last-update" id="lastUpdate"></div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, orderBy, query }
+      from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
+    // ============================================================
+    // 🔧 MÊME CONFIG FIREBASE QUE index.html
+    // ============================================================
+    const firebaseConfig = {
+      apiKey: "VOTRE_API_KEY",
+      authDomain: "VOTRE_PROJECT.firebaseapp.com",
+      projectId: "VOTRE_PROJECT_ID",
+      storageBucket: "VOTRE_PROJECT.appspot.com",
+      messagingSenderId: "VOTRE_MESSAGING_ID",
+      appId: "VOTRE_APP_ID"
+    };
+
+    let db = null;
+    try {
+      const app = initializeApp(firebaseConfig);
+      db = getFirestore(app);
+    } catch(e) {
+      console.warn("Firebase non configuré:", e.message);
+    }
+
+    window._loadVisits = async function() {
+      if (!db) {
+        return [{
+          machineId: "Firebase non configuré",
+          codeEnteredAt: null,
+          device: { ua: "Configurez Firebase pour voir les vraies données", lang: "—", screen: "—", tz: "—", mobile: false },
+          sentiment: null
+        }];
+      }
+      try {
+        const q = query(collection(db, "visits"));
+        const snap = await getDocs(q);
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      } catch(e) {
+        console.error("Load error:", e);
+        return [];
+      }
+    };
+  </script>
+
+  <script>
+    // Admin password — change this!
+    const ADMIN_CODE = 'disney2024';
+
+    function checkAdmin() {
+      const val = document.getElementById('adminInput').value;
+      if (val === ADMIN_CODE) {
+        document.getElementById('login-overlay').classList.add('hidden');
+        document.getElementById('dashboard').classList.add('show');
+        loadData();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+        document.getElementById('adminInput').value = '';
+        setTimeout(() => { document.getElementById('loginError').style.display = 'none'; }, 2500);
+      }
+    }
+
+    function formatDate(ts) {
+      if (!ts) return '<span style="color:rgba(255,255,255,0.25)">—</span>';
+      let date;
+      if (ts.toDate) date = ts.toDate();
+      else if (ts.seconds) date = new Date(ts.seconds * 1000);
+      else date = new Date(ts);
+      const d = date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: '2-digit' });
+      const t = date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      return `<div class="date-text">${d}</div><div class="date-sub">${t}</div>`;
+    }
+
+    function isMobile(device) {
+      return device && device.mobile;
+    }
+
+    function sentimentEmoji(s) {
+      if (!s) return '<span class="sentiment-na">—</span>';
+      const map = { sad: '😢', neutral: '😐', heart: '❤️' };
+      return `<span class="sentiment-badge">${map[s] || '?'}</span>`;
+    }
+
+    function truncateUA(ua) {
+      if (!ua) return '—';
+      // Parse simple browser name
+      if (ua.includes('Chrome') && !ua.includes('Edg')) return 'Chrome';
+      if (ua.includes('Safari') && !ua.includes('Chrome')) return 'Safari';
+      if (ua.includes('Firefox')) return 'Firefox';
+      if (ua.includes('Edg')) return 'Edge';
+      if (ua.includes('OPR') || ua.includes('Opera')) return 'Opera';
+      return ua.slice(0, 40) + '…';
+    }
+
+    async function loadData() {
+      const tbody = document.getElementById('visitsBody');
+      tbody.innerHTML = '<tr class="loading-row"><td colspan="7"><span class="loader"></span>Chargement...</td></tr>';
+
+      const visits = await (window._loadVisits ? window._loadVisits() : Promise.resolve([]));
+
+      // Stats
+      const total = visits.length;
+      const mobile = visits.filter(v => v.device && v.device.mobile).length;
+      const desktop = total - mobile;
+      const voted = visits.filter(v => v.sentiment).length;
+
+      document.getElementById('statTotal').textContent = total;
+      document.getElementById('statMobile').textContent = mobile;
+      document.getElementById('statDesktop').textContent = desktop;
+      document.getElementById('statVoted').textContent = voted;
+      document.getElementById('visitsCount').textContent = `${total} visite(s)`;
+
+      // Sentiment breakdown
+      const sad = visits.filter(v => v.sentiment === 'sad').length;
+      const neutral = visits.filter(v => v.sentiment === 'neutral').length;
+      const heart = visits.filter(v => v.sentiment === 'heart').length;
+      const maxSent = Math.max(sad, neutral, heart, 1);
+
+      document.getElementById('cntSad').textContent = sad;
+      document.getElementById('cntNeutral').textContent = neutral;
+      document.getElementById('cntHeart').textContent = heart;
+      setTimeout(() => {
+        document.getElementById('barSad').style.width = (sad / maxSent * 100) + '%';
+        document.getElementById('barNeutral').style.width = (neutral / maxSent * 100) + '%';
+        document.getElementById('barHeart').style.width = (heart / maxSent * 100) + '%';
+      }, 100);
+
+      // Visits table
+      if (visits.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7">
+          <div class="empty-state">
+            <div class="empty-icon">🔭</div>
+            <div class="empty-text">Aucune visite pour l'instant...<br>Les données apparaîtront dès que quelqu'un entre le code !</div>
+          </div>
+        </td></tr>`;
+        return;
+      }
+
+      // Sort by date desc
+      const sorted = [...visits].sort((a, b) => {
+        const ta = a.codeEnteredAt?.seconds || 0;
+        const tb = b.codeEnteredAt?.seconds || 0;
+        return tb - ta;
+      });
+
+      tbody.innerHTML = sorted.map(v => {
+        const dev = v.device || {};
+        const badge = dev.mobile
+          ? '<span class="badge-mobile">📱 Mobile</span>'
+          : '<span class="badge-desktop">💻 Desktop</span>';
+        const browser = truncateUA(dev.ua);
+        return `
+          <tr>
+            <td><span class="machine-id">${(v.machineId || v.id || '—').slice(0, 18)}</span></td>
+            <td>${formatDate(v.codeEnteredAt || v.updatedAt)}</td>
+            <td>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                ${badge}
+                <span class="device-ua" title="${dev.ua || ''}">${browser}</span>
+              </div>
+            </td>
+            <td style="font-size:0.78rem;white-space:nowrap">${dev.screen || '—'}</td>
+            <td style="font-size:0.78rem">${dev.lang || '—'}</td>
+            <td style="font-size:0.72rem;color:rgba(255,255,255,0.45)">${(dev.tz || '—').replace('_', ' ')}</td>
+            <td>${sentimentEmoji(v.sentiment)}</td>
+          </tr>
+        `;
+      }).join('');
+
+      const now = new Date().toLocaleTimeString('fr-FR');
+      document.getElementById('lastUpdate').textContent = `⏱ Dernière mise à jour : ${now}`;
+    }
+
+    // Allow Enter key on login
+    document.getElementById('adminInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') checkAdmin();
+    });
+  </script>
+</body>
+</html>
