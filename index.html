@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>✨ La Surprise Magique ✨</title>
   <meta name="description" content="Une surprise magique rien que pour toi ✨">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Nunito:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Nunito:wght@400;600;800;900&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --gold: #FFD700;
@@ -27,7 +29,8 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    html, body {
+    html,
+    body {
       background: var(--blue-deep);
       font-family: 'Nunito', sans-serif;
       min-height: 100vh;
@@ -58,9 +61,20 @@
     }
 
     @keyframes floatUp {
-      0% { transform: translateY(110vh) rotate(0deg) scale(0); opacity: 0; }
-      20% { opacity: 1; transform: translateY(80vh) rotate(45deg) scale(1); }
-      100% { transform: translateY(-10vh) rotate(360deg) scale(0.5); opacity: 0; }
+      0% {
+        transform: translateY(110vh) rotate(0deg) scale(0);
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 1;
+        transform: translateY(80vh) rotate(45deg) scale(1);
+      }
+
+      100% {
+        transform: translateY(-10vh) rotate(360deg) scale(0.5);
+        opacity: 0;
+      }
     }
 
     /* === MAIN SCENE === */
@@ -83,7 +97,7 @@
     }
 
     .card {
-      background: linear-gradient(135deg, rgba(13,27,110,0.95) 0%, rgba(107,33,168,0.85) 50%, rgba(13,27,110,0.95) 100%);
+      background: linear-gradient(135deg, rgba(13, 27, 110, 0.95) 0%, rgba(107, 33, 168, 0.85) 50%, rgba(13, 27, 110, 0.95) 100%);
       border: 2px solid transparent;
       background-clip: padding-box;
       border-radius: 28px;
@@ -91,15 +105,25 @@
       width: 100%;
       text-align: center;
       position: relative;
-      box-shadow: 0 0 60px rgba(255,215,0,0.3), 0 0 120px rgba(107,33,168,0.4), inset 0 0 40px rgba(255,215,0,0.05);
+      box-shadow: 0 0 60px rgba(255, 215, 0, 0.3), 0 0 120px rgba(107, 33, 168, 0.4), inset 0 0 40px rgba(255, 215, 0, 0.05);
       transform-style: preserve-3d;
       animation: cardFloat 6s ease-in-out infinite;
     }
 
     @keyframes cardFloat {
-      0%, 100% { transform: rotateX(2deg) rotateY(-2deg) translateY(0px); }
-      33% { transform: rotateX(-1deg) rotateY(3deg) translateY(-8px); }
-      66% { transform: rotateX(3deg) rotateY(-1deg) translateY(-4px); }
+
+      0%,
+      100% {
+        transform: rotateX(2deg) rotateY(-2deg) translateY(0px);
+      }
+
+      33% {
+        transform: rotateX(-1deg) rotateY(3deg) translateY(-8px);
+      }
+
+      66% {
+        transform: rotateX(3deg) rotateY(-1deg) translateY(-4px);
+      }
     }
 
     .card::before {
@@ -114,9 +138,17 @@
     }
 
     @keyframes borderGlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
     }
 
     .crown {
@@ -128,8 +160,15 @@
     }
 
     @keyframes crownBounce {
-      0%, 100% { transform: translateY(0) rotate(-5deg); }
-      50% { transform: translateY(-8px) rotate(5deg); }
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-5deg);
+      }
+
+      50% {
+        transform: translateY(-8px) rotate(5deg);
+      }
     }
 
     .title {
@@ -143,7 +182,7 @@
     }
 
     .subtitle {
-      color: rgba(255,255,255,0.7);
+      color: rgba(255, 255, 255, 0.7);
       font-size: clamp(0.78rem, 2.5vw, 0.95rem);
       margin-bottom: 16px;
       font-weight: 600;
@@ -151,8 +190,8 @@
 
     /* === HINT BOX === */
     .hint-box {
-      background: rgba(255,215,0,0.08);
-      border: 1px solid rgba(255,215,0,0.25);
+      background: rgba(255, 215, 0, 0.08);
+      border: 1px solid rgba(255, 215, 0, 0.25);
       border-radius: 14px;
       padding: 10px 16px;
       margin-bottom: 22px;
@@ -164,14 +203,24 @@
     }
 
     @keyframes hintPulse {
-      0%, 100% { box-shadow: 0 0 0 rgba(255,215,0,0); }
-      50% { box-shadow: 0 0 16px rgba(255,215,0,0.2); }
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 rgba(255, 215, 0, 0);
+      }
+
+      50% {
+        box-shadow: 0 0 16px rgba(255, 215, 0, 0.2);
+      }
     }
 
-    .hint-icons { font-size: 1.4rem; white-space: nowrap; }
+    .hint-icons {
+      font-size: 1.4rem;
+      white-space: nowrap;
+    }
 
     .hint-text {
-      color: rgba(255,255,255,0.85);
+      color: rgba(255, 255, 255, 0.85);
       font-size: 0.82rem;
       font-weight: 700;
       letter-spacing: 0.5px;
@@ -189,7 +238,9 @@
     }
 
     /* === TIMER === */
-    .timer-container { margin-bottom: 22px; }
+    .timer-container {
+      margin-bottom: 22px;
+    }
 
     .timer-ring {
       display: inline-block;
@@ -198,8 +249,16 @@
       height: 100px;
     }
 
-    .timer-ring svg { transform: rotate(-90deg); }
-    .timer-ring .bg-circle { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 6; }
+    .timer-ring svg {
+      transform: rotate(-90deg);
+    }
+
+    .timer-ring .bg-circle {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.1);
+      stroke-width: 6;
+    }
+
     .timer-ring .progress-circle {
       fill: none;
       stroke: url(#timerGrad);
@@ -252,7 +311,7 @@
 
     /* === CODE INPUT === */
     .code-label {
-      color: rgba(255,255,255,0.8);
+      color: rgba(255, 255, 255, 0.8);
       font-size: 0.82rem;
       font-weight: 700;
       letter-spacing: 2px;
@@ -270,8 +329,8 @@
     .digit-box {
       width: clamp(40px, 11vw, 52px);
       height: clamp(52px, 14vw, 68px);
-      background: rgba(255,255,255,0.07);
-      border: 2px solid rgba(255,215,0,0.3);
+      background: rgba(255, 255, 255, 0.07);
+      border: 2px solid rgba(255, 215, 0, 0.3);
       border-radius: 12px;
       font-size: clamp(1.4rem, 5vw, 2rem);
       font-weight: 900;
@@ -285,23 +344,39 @@
 
     .digit-box:focus {
       border-color: var(--gold);
-      background: rgba(255,215,0,0.1);
-      box-shadow: 0 0 20px rgba(255,215,0,0.4);
+      background: rgba(255, 215, 0, 0.1);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
       transform: scale(1.08) translateY(-2px);
     }
 
     .digit-box.shake {
       animation: shake 0.4s ease;
       border-color: var(--danger);
-      background: rgba(255,68,68,0.15);
+      background: rgba(255, 68, 68, 0.15);
     }
 
     @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-8px); }
-      40% { transform: translateX(8px); }
-      60% { transform: translateX(-6px); }
-      80% { transform: translateX(6px); }
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      20% {
+        transform: translateX(-8px);
+      }
+
+      40% {
+        transform: translateX(8px);
+      }
+
+      60% {
+        transform: translateX(-6px);
+      }
+
+      80% {
+        transform: translateX(6px);
+      }
     }
 
     /* === BUTTON === */
@@ -320,14 +395,25 @@
       position: relative;
       overflow: hidden;
       transition: all 0.2s;
-      box-shadow: 0 4px 24px rgba(255,215,0,0.4);
+      box-shadow: 0 4px 24px rgba(255, 215, 0, 0.4);
       width: 100%;
       max-width: 300px;
     }
 
-    .btn-magic:hover { transform: scale(1.05); box-shadow: 0 8px 32px rgba(255,215,0,0.6); }
-    .btn-magic:active { transform: scale(0.97); }
-    .btn-magic:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-magic:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 32px rgba(255, 215, 0, 0.6);
+    }
+
+    .btn-magic:active {
+      transform: scale(0.97);
+    }
+
+    .btn-magic:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
 
     .msg {
       min-height: 22px;
@@ -338,8 +424,14 @@
       transition: all 0.3s;
     }
 
-    .msg.error { color: #ff6b6b; text-shadow: 0 0 10px #ff4444; }
-    .msg.info { color: var(--gold); }
+    .msg.error {
+      color: #ff6b6b;
+      text-shadow: 0 0 10px #ff4444;
+    }
+
+    .msg.info {
+      color: var(--gold);
+    }
 
     /* ==============================
        ERROR SCREEN
@@ -357,7 +449,9 @@
       padding: 40px 20px;
     }
 
-    #error-screen.active { display: flex; }
+    #error-screen.active {
+      display: flex;
+    }
 
     .glitch {
       font-family: 'Cinzel Decorative', cursive;
@@ -369,14 +463,31 @@
     }
 
     @keyframes glitchAnim {
-      0%, 90%, 100% { transform: none; text-shadow: 0 0 30px var(--danger), 0 0 60px var(--danger); }
-      92% { transform: skewX(-10deg) translateX(-4px); text-shadow: 4px 0 var(--pink), -4px 0 cyan; }
-      94% { transform: skewX(10deg) translateX(4px); text-shadow: -4px 0 var(--pink), 4px 0 cyan; }
-      96% { transform: none; }
+
+      0%,
+      90%,
+      100% {
+        transform: none;
+        text-shadow: 0 0 30px var(--danger), 0 0 60px var(--danger);
+      }
+
+      92% {
+        transform: skewX(-10deg) translateX(-4px);
+        text-shadow: 4px 0 var(--pink), -4px 0 cyan;
+      }
+
+      94% {
+        transform: skewX(10deg) translateX(4px);
+        text-shadow: -4px 0 var(--pink), 4px 0 cyan;
+      }
+
+      96% {
+        transform: none;
+      }
     }
 
     .error-msg {
-      color: rgba(255,255,255,0.7);
+      color: rgba(255, 255, 255, 0.7);
       margin: 20px 0 36px;
       font-size: clamp(0.95rem, 3vw, 1.1rem);
       font-weight: 600;
@@ -384,17 +495,28 @@
       line-height: 1.6;
     }
 
-    .error-emoji { font-size: 3.5rem; margin-bottom: 16px; animation: errorPulse 1s ease infinite; }
+    .error-emoji {
+      font-size: 3.5rem;
+      margin-bottom: 16px;
+      animation: errorPulse 1s ease infinite;
+    }
 
     @keyframes errorPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
     }
 
     .btn-retry {
       background: var(--danger);
       color: white;
-      border: 2px solid rgba(255,255,255,0.3);
+      border: 2px solid rgba(255, 255, 255, 0.3);
       padding: 14px 40px;
       border-radius: 50px;
       font-size: 1rem;
@@ -404,10 +526,12 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       transition: all 0.2s;
-      box-shadow: 0 0 30px rgba(255,68,68,0.5);
+      box-shadow: 0 0 30px rgba(255, 68, 68, 0.5);
     }
 
-    .btn-retry:hover { transform: scale(1.05); }
+    .btn-retry:hover {
+      transform: scale(1.05);
+    }
 
     /* ==============================
        VIDEO SCREEN
@@ -425,7 +549,9 @@
       overflow-y: auto;
     }
 
-    #video-screen.active { display: flex; }
+    #video-screen.active {
+      display: flex;
+    }
 
     .video-header {
       text-align: center;
@@ -436,8 +562,15 @@
     }
 
     @keyframes videoReveal {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .video-title {
@@ -449,7 +582,7 @@
     }
 
     .video-sub {
-      color: rgba(255,255,255,0.6);
+      color: rgba(255, 255, 255, 0.6);
       font-size: 0.85rem;
       font-weight: 600;
       letter-spacing: 3px;
@@ -458,7 +591,7 @@
     /* GDRIVE PLAYER */
     .gdrive-player {
       position: relative;
-      background: linear-gradient(135deg, rgba(13,27,110,0.95), rgba(107,33,168,0.85), rgba(13,27,110,0.95));
+      background: linear-gradient(135deg, rgba(13, 27, 110, 0.95), rgba(107, 33, 168, 0.85), rgba(13, 27, 110, 0.95));
       border-radius: 24px;
       padding: 22px 18px 26px;
       width: 100%;
@@ -466,7 +599,7 @@
       text-align: center;
       animation: videoReveal 1s 0.3s ease forwards;
       opacity: 0;
-      box-shadow: 0 0 80px rgba(255,215,0,0.35), 0 0 160px rgba(107,33,168,0.3);
+      box-shadow: 0 0 80px rgba(255, 215, 0, 0.35), 0 0 160px rgba(107, 33, 168, 0.3);
     }
 
     .gdrive-player::before {
@@ -492,16 +625,40 @@
       animation: rsBounce 1.5s ease-in-out infinite;
     }
 
-    .rs:nth-child(1) { animation-delay: 0s; }
-    .rs:nth-child(2) { animation-delay: 0.2s; }
-    .rs:nth-child(3) { animation-delay: 0.4s; }
-    .rs:nth-child(4) { animation-delay: 0.6s; }
-    .rs:nth-child(5) { animation-delay: 0.8s; }
-    .rs:nth-child(6) { animation-delay: 1s; }
+    .rs:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .rs:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .rs:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    .rs:nth-child(4) {
+      animation-delay: 0.6s;
+    }
+
+    .rs:nth-child(5) {
+      animation-delay: 0.8s;
+    }
+
+    .rs:nth-child(6) {
+      animation-delay: 1s;
+    }
 
     @keyframes rsBounce {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-10px) scale(1.2); }
+
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+      }
+
+      50% {
+        transform: translateY(-10px) scale(1.2);
+      }
     }
 
     .gdrive-title {
@@ -514,7 +671,7 @@
     }
 
     .gdrive-sub {
-      color: rgba(255,255,255,0.7);
+      color: rgba(255, 255, 255, 0.7);
       font-size: 0.82rem;
       font-weight: 600;
       margin-bottom: 14px;
@@ -522,13 +679,13 @@
 
     /* QUALITY REMINDER */
     .quality-tip {
-      background: rgba(255,215,0,0.1);
-      border: 1px solid rgba(255,215,0,0.35);
+      background: rgba(255, 215, 0, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.35);
       border-radius: 10px;
       padding: 8px 12px;
       margin-bottom: 14px;
       font-size: 0.78rem;
-      color: rgba(255,255,255,0.9);
+      color: rgba(255, 255, 255, 0.9);
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -536,13 +693,19 @@
       text-align: left;
     }
 
-    .quality-tip .tip-icon { font-size: 1.1rem; flex-shrink: 0; }
-    .quality-tip strong { color: var(--gold); }
+    .quality-tip .tip-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .quality-tip strong {
+      color: var(--gold);
+    }
 
     .video-wrapper {
       border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 0 40px rgba(255,215,0,0.25);
+      box-shadow: 0 0 40px rgba(255, 215, 0, 0.25);
       background: #000;
       margin: 0 auto 10px auto;
       max-width: 280px;
@@ -550,7 +713,7 @@
     }
 
     .reveal-hint {
-      color: rgba(255,255,255,0.4);
+      color: rgba(255, 255, 255, 0.4);
       font-size: 0.72rem;
       font-weight: 600;
       margin-top: 10px;
@@ -562,14 +725,14 @@
     .sentiment-section {
       margin-top: 20px;
       padding: 18px 16px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,215,0,0.15);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 215, 0, 0.15);
       border-radius: 16px;
       text-align: center;
     }
 
     .sentiment-label {
-      color: rgba(255,255,255,0.8);
+      color: rgba(255, 255, 255, 0.8);
       font-size: 0.82rem;
       font-weight: 700;
       margin-bottom: 14px;
@@ -585,8 +748,8 @@
 
     .sentiment-btn {
       font-size: 2.2rem;
-      background: rgba(255,255,255,0.06);
-      border: 2px solid rgba(255,255,255,0.12);
+      background: rgba(255, 255, 255, 0.06);
+      border: 2px solid rgba(255, 255, 255, 0.12);
       border-radius: 50%;
       width: 64px;
       height: 64px;
@@ -600,9 +763,9 @@
 
     .sentiment-btn:hover:not(:disabled) {
       transform: scale(1.2) translateY(-4px);
-      border-color: rgba(255,215,0,0.5);
-      background: rgba(255,215,0,0.1);
-      box-shadow: 0 8px 24px rgba(255,215,0,0.3);
+      border-color: rgba(255, 215, 0, 0.5);
+      background: rgba(255, 215, 0, 0.1);
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.3);
     }
 
     .sentiment-btn:active:not(:disabled) {
@@ -612,15 +775,23 @@
     .sentiment-btn.voted {
       transform: scale(1.25);
       border-color: var(--gold);
-      background: rgba(255,215,0,0.15);
-      box-shadow: 0 0 24px rgba(255,215,0,0.5);
+      background: rgba(255, 215, 0, 0.15);
+      box-shadow: 0 0 24px rgba(255, 215, 0, 0.5);
       animation: votedPop 0.4s ease;
     }
 
     @keyframes votedPop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.4); }
-      100% { transform: scale(1.25); }
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.4);
+      }
+
+      100% {
+        transform: scale(1.25);
+      }
     }
 
     .sentiment-btn:disabled {
@@ -645,7 +816,9 @@
       display: none;
     }
 
-    .sentiment-voted-msg.show { display: block; }
+    .sentiment-voted-msg.show {
+      display: block;
+    }
 
     /* Confetti burst */
     .confetti-piece {
@@ -660,8 +833,15 @@
     }
 
     @keyframes confettiFall {
-      0% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateX(var(--cf-x)) translateY(110vh) rotate(720deg); opacity: 0; }
+      0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateX(var(--cf-x)) translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
     }
 
     /* DECORATIVE ELEMENTS */
@@ -674,30 +854,64 @@
     }
 
     @keyframes decoRotate {
-      from { transform: rotate(0deg) translateX(var(--dt)) rotate(0deg); }
-      to { transform: rotate(360deg) translateX(var(--dt)) rotate(-360deg); }
+      from {
+        transform: rotate(0deg) translateX(var(--dt)) rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg) translateX(var(--dt)) rotate(-360deg);
+      }
     }
 
     /* Timer urgency */
-    .timer-urgent .progress-circle { stroke: #ff4444 !important; }
-    .timer-urgent .timer-text { color: #ff6b6b !important; animation: urgentPulse 0.5s ease infinite alternate; }
+    .timer-urgent .progress-circle {
+      stroke: #ff4444 !important;
+    }
+
+    .timer-urgent .timer-text {
+      color: #ff6b6b !important;
+      animation: urgentPulse 0.5s ease infinite alternate;
+    }
 
     @keyframes urgentPulse {
-      from { text-shadow: 0 0 10px var(--danger); transform: translate(-50%, -50%) scale(1); }
-      to { text-shadow: 0 0 30px var(--danger); transform: translate(-50%, -50%) scale(1.1); }
+      from {
+        text-shadow: 0 0 10px var(--danger);
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      to {
+        text-shadow: 0 0 30px var(--danger);
+        transform: translate(-50%, -50%) scale(1.1);
+      }
     }
 
     /* Mobile tweaks */
     @media (max-width: 400px) {
-      #scene { padding: 12px; }
-      .card { padding: 24px 16px; }
-      .code-inputs { gap: 5px; }
+      #scene {
+        padding: 12px;
+      }
+
+      .card {
+        padding: 24px 16px;
+      }
+
+      .code-inputs {
+        gap: 5px;
+      }
     }
 
     @media (max-height: 700px) {
-      .timer-container { margin-bottom: 14px; }
-      .subtitle { margin-bottom: 10px; }
-      .hint-box { margin-bottom: 14px; }
+      .timer-container {
+        margin-bottom: 14px;
+      }
+
+      .subtitle {
+        margin-bottom: 10px;
+      }
+
+      .hint-box {
+        margin-bottom: 14px;
+      }
     }
   </style>
 </head>
@@ -707,8 +921,12 @@
   <canvas id="starfield"></canvas>
   <div id="sparkles"></div>
 
-  <div class="deco-circle" style="width:300px;height:300px;border:1px solid rgba(255,215,0,0.06);top:50%;left:50%;margin:-150px;--dr:40s;--dt:200px;"></div>
-  <div class="deco-circle" style="width:500px;height:500px;border:1px solid rgba(236,72,153,0.05);top:50%;left:50%;margin:-250px;--dr:60s;--dt:280px;animation-direction:reverse;"></div>
+  <div class="deco-circle"
+    style="width:300px;height:300px;border:1px solid rgba(255,215,0,0.06);top:50%;left:50%;margin:-150px;--dr:40s;--dt:200px;">
+  </div>
+  <div class="deco-circle"
+    style="width:500px;height:500px;border:1px solid rgba(236,72,153,0.05);top:50%;left:50%;margin:-250px;--dr:60s;--dt:280px;animation-direction:reverse;">
+  </div>
 
   <!-- MAIN SCENE -->
   <div id="scene">
@@ -723,7 +941,7 @@
           <div class="hint-icons">👑&nbsp;👱‍♀️</div>
           <div>
             <span class="hint-label">💡 Indice</span>
-            <p class="hint-text">La date de naissance d'une princesse</p>
+            <p class="hint-text">La date de naissance d'une princesse (toi)</p>
           </div>
         </div>
 
@@ -773,7 +991,8 @@
   <div id="error-screen">
     <div class="error-emoji">💀</div>
     <div class="glitch">TIMEOUT</div>
-    <p class="error-msg" id="errorMessage">Le temps est écoulé !<br>La magie s'est envolée...<br>Relance la page pour réessayer !</p>
+    <p class="error-msg" id="errorMessage">Le temps est écoulé !<br>La magie s'est envolée...<br>Relance la page pour
+      réessayer !</p>
     <button class="btn-retry" onclick="resetPage()">🔄 Recommencer la Magie</button>
   </div>
 
@@ -801,8 +1020,7 @@
       <div class="video-wrapper">
         <iframe id="surpriseVideo"
           src="https://drive.google.com/file/d/17s3t9XeVpb-PJAdK1W2datsDNNgdQzQL/preview?vq=hd1080"
-          allow="autoplay; fullscreen"
-          allowfullscreen
+          allow="autoplay; fullscreen" allowfullscreen
           style="width:100%;aspect-ratio:9/16;border:none;border-radius:14px;display:block;">
         </iframe>
       </div>
@@ -812,9 +1030,12 @@
       <div class="sentiment-section" id="sentimentSection">
         <p class="sentiment-label">Après avoir regardé la vidéo,<br>dis-nous ce que tu ressens 💭</p>
         <div class="sentiment-btns">
-          <button class="sentiment-btn" id="btn-sad" data-feel="sad" title="Triste / Emu(e)" onclick="saveSentiment('sad')">😢</button>
-          <button class="sentiment-btn" id="btn-neutral" data-feel="neutral" title="Mitigé(e)" onclick="saveSentiment('neutral')">😐</button>
-          <button class="sentiment-btn" id="btn-heart" data-feel="heart" title="J'adore !" onclick="saveSentiment('heart')">❤️</button>
+          <button class="sentiment-btn" id="btn-sad" data-feel="sad" title="Triste / Emu(e)"
+            onclick="saveSentiment('sad')">😢</button>
+          <button class="sentiment-btn" id="btn-neutral" data-feel="neutral" title="Mitigé(e)"
+            onclick="saveSentiment('neutral')">😐</button>
+          <button class="sentiment-btn" id="btn-heart" data-feel="heart" title="J'adore !"
+            onclick="saveSentiment('heart')">❤️</button>
         </div>
         <div class="sentiment-voted-msg" id="sentimentVotedMsg">✨ Merci pour ton avis ! ✨</div>
       </div>
@@ -845,7 +1066,7 @@
     try {
       const app = initializeApp(firebaseConfig);
       db = getFirestore(app);
-    } catch(e) {
+    } catch (e) {
       console.warn("Firebase non configuré – tracking désactivé:", e.message);
     }
 
@@ -876,7 +1097,7 @@
     window._getDeviceInfo = getDeviceInfo;
 
     // === TRACK CODE SUCCESS ===
-    window._trackCodeSuccess = async function() {
+    window._trackCodeSuccess = async function () {
       if (!db) return;
       const mid = getMachineId();
       const info = getDeviceInfo();
@@ -889,11 +1110,11 @@
           sentiment: localStorage.getItem('_sentiment_' + mid) || null,
           updatedAt: serverTimestamp()
         }, { merge: true });
-      } catch(e) { console.warn("Track error:", e); }
+      } catch (e) { console.warn("Track error:", e); }
     };
 
     // === TRACK SENTIMENT ===
-    window._trackSentiment = async function(feel) {
+    window._trackSentiment = async function (feel) {
       if (!db) return;
       const mid = getMachineId();
       try {
@@ -902,7 +1123,7 @@
           sentimentAt: serverTimestamp(),
           updatedAt: serverTimestamp()
         }, { merge: true });
-      } catch(e) { console.warn("Sentiment error:", e); }
+      } catch (e) { console.warn("Sentiment error:", e); }
     };
   </script>
 
@@ -1100,7 +1321,7 @@
       }
     }
 
-    window.saveSentiment = function(feel) {
+    window.saveSentiment = function (feel) {
       const mid = getMid();
       const key = '_sentiment_' + mid;
       if (localStorage.getItem(key)) return; // already voted
@@ -1173,4 +1394,5 @@
     }
   </script>
 </body>
+
 </html>
